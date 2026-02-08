@@ -8,7 +8,6 @@
     <title>Mis 15 Años - Keylee</title>
     <meta property="og:title" content="👑 Mis 15 Años - Keylee Sofia">
     <meta property="og:description" content="Acompáñame a celebrar una noche mágica.">
-    <!-- CAMBIA ESTO POR TU URL REAL EN GITHUB -->
     <meta property="og:image" content="https://tuusuario.github.io/invitacion-keylee/corona.png"> 
     
     <link rel="icon" type="image/png" href="corona.png">
@@ -22,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 
     <style>
-        /* --- 1. VARIABLES (WEB) --- */
+        /* --- 1. VARIABLES --- */
         :root {
             --dorado: #D4AF37;       
             --dorado-oscuro: #B8860B;
@@ -40,7 +39,31 @@
             overflow-x: hidden;
         }
 
-        /* --- 2. DIVISORES BARROCOS --- */
+        /* --- 2. ESQUINEROS BARROCOS REALISTAS --- */
+        .ornament-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; /* Para que no estorben al dar clic */
+            z-index: 10; /* Por encima del fondo, por debajo del texto */
+            overflow: hidden;
+        }
+
+        .ornament {
+            position: absolute;
+            width: 35%; /* Tamaño relativo al ancho de la pantalla */
+            max-width: 250px; /* Tamaño máximo para PC */
+            min-width: 120px; /* Tamaño mínimo para celular */
+            height: auto;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.8)); /* Sombra para profundidad */
+        }
+
+        /* Posiciones y Rotaciones para formar el cuadro */
+        .ornament-tl { top: 0; left: 0; }
+        .ornament-tr { top: 0; right: 0; transform: scaleX(-1); } /* Espejo Horizontal */
+        .ornament-bl { bottom: 0; left: 0; transform: scaleY(-1); } /* Espejo Vertical */
+        .ornament-br { bottom: 0; right: 0; transform: scale(-1); } /* Espejo Total */
+
+        /* --- 3. DIVISORES BARROCOS (Líneas entre secciones) --- */
         .baroque-divider {
             display: flex; align-items: center; justify-content: center;
             margin: 0; padding: 30px 0; background-color: var(--negro);
@@ -60,7 +83,7 @@
             line-height: 1; text-shadow: 0 0 10px var(--dorado-oscuro);
         }
 
-        /* --- 3. PRELOADER --- */
+        /* --- 4. PRELOADER --- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center;
@@ -68,7 +91,7 @@
         }
         .loader-content img { width: 100px; animation: pulse 1.5s infinite; }
 
-        /* --- 4. PARTÍCULAS --- */
+        /* --- 5. PARTÍCULAS --- */
         #particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
         .particle {
             position: absolute; background: radial-gradient(circle, #fff 0%, var(--dorado) 60%, transparent 100%);
@@ -82,8 +105,8 @@
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
 
-        /* --- 5. ESTILOS GENERALES --- */
-        .script-font { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+        /* --- 6. ESTILOS GENERALES --- */
+        .script-font { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.6); position: relative; z-index: 20;}
         h1, h2, h3 { text-transform: uppercase; letter-spacing: 4px; z-index: 2; position: relative; font-weight: 700; margin: 0; }
         p { font-family: 'Pinyon Script', cursive; font-size: 1.8rem; line-height: 1.4; color: #e0e0e0; z-index: 2; position: relative; margin: 15px 0; }
         
@@ -91,16 +114,18 @@
         .bg-texture { background-image: url('fondo2.jpg'); background-size: cover; background-attachment: fixed; padding: 60px 10px; }
         .overlay { background: rgba(0, 0, 0, 0.75); padding: 40px 10px; }
 
-        /* --- 6. COMPONENTES --- */
+        /* --- 7. COMPONENTES --- */
         .hero {
             min-height: 100vh; background-image: url('fondo1.jpg'); background-size: cover; background-position: center; background-attachment: fixed;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative; 
         }
         .hero-name {
             font-size: 4rem; letter-spacing: 12px;
             background: linear-gradient(to bottom, #fff, var(--dorado));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             margin: 0; border-top: 1px solid var(--dorado); border-bottom: 1px solid var(--dorado); padding: 15px 20px;
+            position: relative; z-index: 20;
         }
 
         .btn-baroque {
@@ -181,13 +206,13 @@
         .spinning { animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- 7. TARJETA DE IMPRESIÓN (OCULTA EN WEB) --- */
+        /* --- 8. TARJETA DE IMPRESIÓN (OCULTA EN WEB) --- */
         #printable-card { display: none; }
 
-        /* --- 8. ESTILOS PRO PARA IMPRESIÓN (AJUSTADO A 14x20cm) --- */
+        /* --- 9. ESTILOS PRO PARA IMPRESIÓN (AJUSTADO A 14x20cm) --- */
         @media print {
             @page { 
-                /* Definimos el tamaño exacto de la tarjeta para que el PDF se genere en este tamaño */
+                /* Tamaño Tarjeta Media Carta o A5 aprox */
                 size: 140mm 200mm; 
                 margin: 0; 
             }
@@ -198,8 +223,7 @@
                 background: #fff !important; margin: 0; padding: 0; 
                 -webkit-print-color-adjust: exact !important; 
                 print-color-adjust: exact !important;
-                width: 140mm; /* Forzamos ancho */
-                height: 200mm; /* Forzamos alto */
+                width: 140mm; height: 200mm; 
             }
 
             #printable-card, #printable-card * { visibility: visible; }
@@ -220,7 +244,7 @@
                 padding: 10px; box-sizing: border-box;
             }
             
-            /* Ajustamos tamaños de fuente para que quepa en la tarjeta pequeña */
+            /* Fuentes Print */
             .p-header { font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: #B8860B; margin: 0; }
             .p-name { 
                 font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 700;
@@ -248,6 +272,8 @@
             .p-footer { font-family: 'Pinyon Script', cursive; font-size: 1.5rem; margin-top: 10px; color: #B8860B; }
             
             .print-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; opacity: 0.08; z-index: 0; }
+            
+            /* Esquinas Impresión */
             .corner { position: absolute; width: 30px; height: 30px; border: 2px solid #B8860B; border-radius: 50%; }
             .tl { top: -10px; left: -10px; border-right: none; border-bottom: none; }
             .tr { top: -10px; right: -10px; border-left: none; border-bottom: none; }
@@ -261,6 +287,7 @@
             .script-font { font-size: 2.5rem; }
             .baroque-line { max-width: 30%; }
             .gallery-masonry { column-count: 2; }
+            .ornament { width: 30%; } /* Ajuste esquineros móvil */
         }
     </style>
 </head>
@@ -285,7 +312,7 @@
                         <div class="p-title">DRESS CODE</div><p class="p-text">Elegante Formal</p><p class="p-text" style="font-size: 0.7rem; font-weight: bold;">(No usar vinotinto)</p>
                     </div>
                     <div class="print-col" style="border-left: 1px dotted #B8860B;">
-                        <div class="p-title">OBSEQUIO</div><p class="p-text">Lluvia de Sobres</p>
+                        <div class="p-title">OBSEQUIO</div><p class="p-text">Lluvia de Sobres</p><!--<p class="p-text">o Regalo</p>-->
                     </div>
                 </div>
                 <div class="p-footer">¡Te esperamos!</div>
@@ -304,9 +331,17 @@
     <!-- PARTÍCULAS -->
     <div id="particles-container"></div>
 
-    <!-- 1. PORTADA -->
+    <!-- 1. PORTADA CON ESQUINEROS REALISTAS -->
     <section class="hero">
-        <img src="corona.png" alt="Corona" style="width: 150px; filter: drop-shadow(0 0 10px var(--dorado));" data-aos="fade-down" data-aos-duration="2000">
+        <!-- ESQUINEROS IMAGEN (Requiere archivo 'esquina.png') -->
+        <div class="ornament-container">
+            <img src="esquina.png" class="ornament ornament-tl" alt="Esquina">
+            <img src="esquina.png" class="ornament ornament-tr" alt="Esquina">
+            <img src="esquina.png" class="ornament ornament-bl" alt="Esquina">
+            <img src="esquina.png" class="ornament ornament-br" alt="Esquina">
+        </div>
+
+        <img src="corona.png" alt="Corona" style="width: 150px; filter: drop-shadow(0 0 10px var(--dorado)); z-index: 20;" data-aos="fade-down" data-aos-duration="2000">
         <div class="script-font" data-aos="zoom-in" data-aos-duration="2000" data-aos-delay="300">Mis 15 Años</div>
         <h1 class="hero-name" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800">KEYLEE</h1>
     </section>
@@ -395,7 +430,7 @@
     <!-- 6. REGALOS -->
     <section class="bg-texture">
         <div class="overlay">
-            <h2 style="margin-bottom: 50px;">Obsequio</h2>
+            <h2 style="margin-bottom: 50px;">Obsequios</h2>
             <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;">
                 <div data-aos="fade-right"><img src="sobre.png" class="gift-auto-anim" alt="Sobre"><h3>Lluvia de Sobres</h3></div>
                 <!--<div data-aos="fade-left"><img src="regalo.png" class="gift-auto-anim" alt="Regalo"><h3>Regalo</h3></div>-->
