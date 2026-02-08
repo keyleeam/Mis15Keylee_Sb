@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Y META TAGS -->
+    <title>Mis 15 Años - Keylee</title>
+    <meta property="og:title" content="👑 Mis 15 Años - Keylee Sofia">
+    <meta property="og:description" content="Acompáñame a celebrar una noche mágica.">
+    <!-- CAMBIA ESTO POR TU URL REAL EN GITHUB -->
+    <meta property="og:image" content="https://tuusuario.github.io/invitacion-keylee/corona.png"> 
+    
+    <link rel="icon" type="image/png" href="corona.png">
+
+    <!-- Animaciones -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. VARIABLES (WEB) --- */
+        :root {
+            --dorado: #D4AF37;       
+            --dorado-oscuro: #B8860B;
+            --negro: #050505;
+            --vinotinto: #2b0505;    
+            --transicion: all 0.4s ease;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--negro);
+            color: var(--dorado);
+            font-family: 'Cinzel', serif; 
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. DIVISORES BARROCOS --- */
+        .baroque-divider {
+            display: flex; align-items: center; justify-content: center;
+            margin: 0; padding: 30px 0; background-color: var(--negro);
+            position: relative; z-index: 5;
+        }
+        .baroque-line {
+            flex-grow: 1; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+            max-width: 40%; position: relative;
+        }
+        .baroque-line::before, .baroque-line::after {
+            content: ""; position: absolute; left: 50%; width: 8px; height: 8px;
+            background: var(--dorado); transform: rotate(45deg) translateX(-50%); opacity: 0.7;
+        }
+        .baroque-symbol {
+            font-size: 2.5rem; color: var(--dorado); margin: 0 15px;
+            line-height: 1; text-shadow: 0 0 10px var(--dorado-oscuro);
+        }
+
+        /* --- 3. PRELOADER --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loader-content img { width: 100px; animation: pulse 1.5s infinite; }
+
+        /* --- 4. PARTÍCULAS --- */
+        #particles-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+        .particle {
+            position: absolute; background: radial-gradient(circle, #fff 0%, var(--dorado) 60%, transparent 100%);
+            border-radius: 50%; opacity: 0.8; box-shadow: 0 0 5px var(--dorado); animation: floatUp linear infinite;
+        }
+        .petal {
+            position: absolute; width: 15px; height: 15px; background: #660000;
+            border-radius: 15px 0px 15px 0px; opacity: 0.6; animation: fall linear infinite;
+        }
+        @keyframes floatUp { 0% { transform: translateY(105vh) scale(0.5); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(105vh) rotate(360deg); opacity: 0; } }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+
+        /* --- 5. ESTILOS GENERALES --- */
+        .script-font { font-family: 'Pinyon Script', cursive; font-size: 3rem; color: #fff; text-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+        h1, h2, h3 { text-transform: uppercase; letter-spacing: 4px; z-index: 2; position: relative; font-weight: 700; margin: 0; }
+        p { font-family: 'Pinyon Script', cursive; font-size: 1.8rem; line-height: 1.4; color: #e0e0e0; z-index: 2; position: relative; margin: 15px 0; }
+        
+        section { position: relative; z-index: 2; }
+        .bg-texture { background-image: url('fondo2.jpg'); background-size: cover; background-attachment: fixed; padding: 60px 10px; }
+        .overlay { background: rgba(0, 0, 0, 0.75); padding: 40px 10px; }
+
+        /* --- 6. COMPONENTES --- */
+        .hero {
+            min-height: 100vh; background-image: url('fondo1.jpg'); background-size: cover; background-position: center; background-attachment: fixed;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .hero-name {
+            font-size: 4rem; letter-spacing: 12px;
+            background: linear-gradient(to bottom, #fff, var(--dorado));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin: 0; border-top: 1px solid var(--dorado); border-bottom: 1px solid var(--dorado); padding: 15px 20px;
+        }
+
+        .btn-baroque {
+            background: transparent; border: 2px solid var(--dorado); outline: 1px solid var(--dorado); outline-offset: 4px;
+            color: var(--dorado); font-family: 'Cinzel', serif; font-weight: 700; padding: 15px 40px; margin-top: 25px;
+            text-decoration: none; display: inline-block; transition: var(--transicion); text-transform: uppercase; letter-spacing: 2px;
+        }
+        .btn-baroque:hover { background: var(--dorado); color: #000; outline-offset: 0px; box-shadow: 0 0 20px var(--dorado); }
+
+        /* ANIMACIONES PRO */
+        .camera-container { position: relative; display: inline-block; margin: 20px auto; }
+        .camara-icon { width: 70px; filter: drop-shadow(0 0 5px #000); position: relative; z-index: 2; }
+        .camera-flash {
+            position: absolute; top: 20%; left: 65%; width: 10px; height: 10px;
+            background: radial-gradient(circle, #fff 0%, transparent 70%);
+            border-radius: 50%; z-index: 3; opacity: 0;
+            animation: flash-effect 4s infinite;
+        }
+        @keyframes flash-effect {
+            0%, 48%, 52%, 100% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(15); opacity: 0.9; }
+        }
+
+        .copas-anim { width: 120px; animation: toast-tilt 3s infinite ease-in-out; transform-origin: center bottom; }
+        @keyframes toast-tilt { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(5deg) scale(1.05); } }
+
+        .pareja-anim { width: 140px; animation: vals-float 4s infinite ease-in-out; opacity: 0.95; }
+        @keyframes vals-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* BOTÓN IMPRIMIR PRO */
+        .btn-print-pro {
+            background: linear-gradient(135deg, #b8860b 0%, #ffe082 50%, #b8860b 100%);
+            color: #2a0a0a; border: 2px solid #5a3a00; border-radius: 5px;
+            padding: 15px 35px; font-family: 'Cinzel', serif; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); transition: all 0.3s ease;
+            text-transform: uppercase; margin-top: 20px;
+        }
+        .btn-print-pro:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, #ffd700 0%, #fff 50%, #ffd700 100%);
+        }
+        .print-icon { font-size: 1.5rem; }
+
+        /* GALERÍA MASONRY */
+        .gallery-masonry { column-count: 3; column-gap: 15px; max-width: 1000px; margin: 30px auto; padding: 0 10px; }
+        .gallery-item { break-inside: avoid; margin-bottom: 15px; position: relative; }
+        .photo-frame-pro {
+            width: 100%; height: auto; display: block; border: 4px solid var(--negro); outline: 2px solid var(--dorado);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: sepia(20%) contrast(1.1);
+        }
+        .photo-frame-pro:hover { transform: scale(1.03); filter: sepia(0%) brightness(1.1); outline: 3px solid #fff; z-index: 10; box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4); }
+
+        /* OTROS */
+        .gift-auto-anim { width: 90px; animation: pulse-gold 2s infinite ease-in-out; margin-bottom: 10px; }
+        @keyframes pulse-gold { 0% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); } 50% { transform: scale(1.1); filter: drop-shadow(0 0 15px var(--dorado)); } 100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); } }
+
+        .countdown { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .time-box { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--dorado); padding: 10px; min-width: 60px; }
+        .time-number { font-size: 1.5rem; display: block; color: #fff; }
+        .time-label { font-size: 0.8rem; color: var(--dorado); }
+
+        #lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; justify-content: center; align-items: center; }
+        #lightbox img { max-width: 90%; max-height: 80%; border: 3px solid var(--dorado); box-shadow: 0 0 50px var(--dorado); }
+        #lightbox-close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: #fff; cursor: pointer; }
+
+        #rsvpModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
+        .rsvp-content { background: url('fondo2.jpg'); background-size: cover; border: 2px solid var(--dorado); padding: 4px; width: 90%; max-width: 500px; position: relative; }
+        .rsvp-inner { background: rgba(0,0,0,0.9); padding: 30px; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 30px; color: #fff; cursor: pointer; z-index: 2; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-input, .form-select { width: 100%; padding: 12px; background: #222; border: 1px solid var(--dorado); color: #fff; box-sizing: border-box; }
+        .btn-gold { background: linear-gradient(45deg, #b8860b, #ffd700); border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
+
+        .music-btn { position: fixed; bottom: 20px; right: 20px; z-index: 5000; width: 50px; height: 50px; background: #000; border: 2px solid var(--dorado); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 15px var(--dorado); }
+        .spinning { animation: spin 4s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- 7. TARJETA DE IMPRESIÓN (OCULTA EN WEB) --- */
+        #printable-card { display: none; }
+
+        /* --- 8. ESTILOS PRO PARA IMPRESIÓN (AJUSTADO A 14x20cm) --- */
+        @media print {
+            @page { 
+                /* Definimos el tamaño exacto de la tarjeta para que el PDF se genere en este tamaño */
+                size: 140mm 200mm; 
+                margin: 0; 
+            }
+            body * { visibility: hidden; }
+            #preloader, #audioPlayer, .music-btn, #particles-container, section, footer, .baroque-divider, #rsvpModal, #lightbox { display: none !important; }
+            
+            body { 
+                background: #fff !important; margin: 0; padding: 0; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important;
+                width: 140mm; /* Forzamos ancho */
+                height: 200mm; /* Forzamos alto */
+            }
+
+            #printable-card, #printable-card * { visibility: visible; }
+            
+            #printable-card {
+                display: flex !important; flex-direction: column; 
+                width: 140mm; height: 200mm; 
+                position: absolute; top: 0; left: 0;
+                background-color: #fffaf0; 
+                box-sizing: border-box; padding: 5mm;
+            }
+
+            .print-frame-outer {
+                border: 3px double #B8860B; 
+                height: 100%; 
+                position: relative; display: flex; flex-direction: column; 
+                align-items: center; justify-content: flex-start; 
+                padding: 10px; box-sizing: border-box;
+            }
+            
+            /* Ajustamos tamaños de fuente para que quepa en la tarjeta pequeña */
+            .p-header { font-family: 'Pinyon Script', cursive; font-size: 1.8rem; color: #B8860B; margin: 0; }
+            .p-name { 
+                font-family: 'Cinzel', serif; font-size: 2.2rem; font-weight: 700;
+                letter-spacing: 2px; color: #000; margin: 5px 0;
+                border-bottom: 2px solid #B8860B; border-top: 2px solid #B8860B;
+                padding: 2px 10px; display: inline-block;
+            }
+            .p-quote { 
+                font-family: 'Playfair Display', serif; font-style: italic; 
+                font-size: 0.7rem; margin: 5px auto; color: #444; width: 95%; line-height: 1.2;
+            }
+            .p-date-box { 
+                margin: 5px 0; padding: 2px 0; 
+                border-top: 1px solid #B8860B; border-bottom: 1px solid #B8860B; 
+                width: 90%; 
+            }
+            .p-date { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: bold; }
+            .p-time { font-family: 'Cinzel', serif; font-size: 0.9rem; }
+            
+            .p-title { font-family: 'Cinzel', serif; font-weight: bold; font-size: 0.9rem; color: #B8860B; text-decoration: underline; margin-bottom: 1px; }
+            .p-text { font-family: 'Playfair Display', serif; font-size: 0.8rem; margin: 0; color: #111; line-height: 1.2; }
+            
+            .print-bottom-grid { display: flex; width: 100%; justify-content: space-around; margin-top: 5px; border-top: 1px dotted #ccc; padding-top: 5px; }
+            .print-col { width: 48%; }
+            .p-footer { font-family: 'Pinyon Script', cursive; font-size: 1.5rem; margin-top: 10px; color: #B8860B; }
+            
+            .print-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; opacity: 0.08; z-index: 0; }
+            .corner { position: absolute; width: 30px; height: 30px; border: 2px solid #B8860B; border-radius: 50%; }
+            .tl { top: -10px; left: -10px; border-right: none; border-bottom: none; }
+            .tr { top: -10px; right: -10px; border-left: none; border-bottom: none; }
+            .bl { bottom: -10px; left: -10px; border-right: none; border-top: none; }
+            .br { bottom: -10px; right: -10px; border-left: none; border-top: none; }
+            .print-content { z-index: 1; text-align: center; width: 100%; }
+        }
+
+        @media (max-width: 600px) { 
+            .hero-name { font-size: 2.8rem; letter-spacing: 5px; } 
+            .script-font { font-size: 2.5rem; }
+            .baroque-line { max-width: 30%; }
+            .gallery-masonry { column-count: 2; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TARJETA IMPRIMIBLE (TAMAÑO TARJETA REAL 14x20cm) -->
+    <div id="printable-card">
+        <div class="print-frame-outer">
+            <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+            <img src="corona.png" class="print-watermark" alt="Marca de agua">
+            <div class="print-content">
+                <div style="font-size: 1.5rem; color: #B8860B;">♕</div>
+                <h2 class="p-header">Mis 15 Años</h2>
+                <h1 class="p-name">KEYLEE SOFIA</h1>
+                <p class="p-quote">"Hay momentos en la vida que son especiales por sí solos, pero al compartirlos contigo se vuelven inolvidables."</p>
+                <div class="p-date-box"><div class="p-date">21 DE MARZO DE 2026</div><div class="p-time">7:00 P.M.</div></div>
+                <div style="margin-top: 5px;">
+                    <div class="p-title">RECEPCIÓN</div><p class="p-text">Calle 30 # 50a - 17</p><p class="p-text">Barrio Zaragocilla</p><p class="p-text">Cartagena de Indias</p>
+                </div>
+                <div class="print-bottom-grid">
+                    <div class="print-col">
+                        <div class="p-title">DRESS CODE</div><p class="p-text">Elegante Formal</p><p class="p-text" style="font-size: 0.7rem; font-weight: bold;">(No usar vinotinto)</p>
+                    </div>
+                    <div class="print-col" style="border-left: 1px dotted #B8860B;">
+                        <div class="p-title">OBSEQUIO</div><p class="p-text">Lluvia de Sobres</p>
+                    </div>
+                </div>
+                <div class="p-footer">¡Te esperamos!</div>
+                <div style="font-size: 1.2rem; color: #B8860B;">⚜</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRELOADER -->
+    <div id="preloader"><div class="loader-content"><img src="corona.png" alt="Cargando..."></div></div>
+
+    <!-- AUDIO -->
+    <audio id="audioPlayer" loop><source src="musica.mp3" type="audio/mp3"></audio>
+    <div class="music-btn" onclick="toggleMusic()" id="musicDisc">🎵</div>
+
+    <!-- PARTÍCULAS -->
+    <div id="particles-container"></div>
+
+    <!-- 1. PORTADA -->
+    <section class="hero">
+        <img src="corona.png" alt="Corona" style="width: 150px; filter: drop-shadow(0 0 10px var(--dorado));" data-aos="fade-down" data-aos-duration="2000">
+        <div class="script-font" data-aos="zoom-in" data-aos-duration="2000" data-aos-delay="300">Mis 15 Años</div>
+        <h1 class="hero-name" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="800">KEYLEE</h1>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">⚜</div><div class="baroque-line"></div></div>
+
+    <!-- 2. FRASE -->
+    <section style="background-color: var(--vinotinto); padding: 80px 20px;">
+        <div data-aos="fade-up">
+            <p>"Hay momentos en la vida que son especiales por sí solos, pero al compartirlos con personas especiales como tú, se convierten en momentos imposibles de olvidar"</p>
+            <div style="font-size: 1.5rem; margin-top: 20px; color: #fff; letter-spacing: 2px;">21 DE MARZO DE 2026</div>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+Años+-+Keylee&dates=20260321T190000/20260322T020000&details=Celebración+de+mis+15+años.&location=Cartagena" target="_blank" style="color: #ccc; text-decoration: none; border-bottom: 1px dotted #ccc; margin-top: 15px; display: inline-block; font-size: 0.9rem;">📅 Agendar en Google Calendar</a>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">❖</div><div class="baroque-line"></div></div>
+
+    <!-- 3. GALERÍA PRO (MASONRY) -->
+    <section class="bg-texture">
+        <div class="overlay">
+            <h2 data-aos="fade-down">Un recorrido por estos 15 años</h2>
+            
+            <div class="camera-container" data-aos="zoom-in">
+                <div class="camera-flash"></div>
+                <img src="camara.png" alt="Cámara" class="camara-icon">
+            </div>
+
+            <div class="gallery-masonry">
+                <div class="gallery-item" data-aos="fade-up"><img src="foto1.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100"><img src="foto2.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200"><img src="foto3.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="150"><img src="foto4.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="250"><img src="foto5.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100"><img src="foto6.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200"><img src="foto7.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300"><img src="foto8.jpg" class="photo-frame-pro" onclick="openLightbox(this)"></div>
+            </div>
+
+            <div style="margin-top: 50px;" data-aos="zoom-in">
+                <h3>Falta muy poco</h3>
+                <div class="countdown" id="countdown">
+                    <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">DÍAS</span></div>
+                    <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">HRS</span></div>
+                    <div class="time-box"><span class="time-number" id="minutes">00</span><span class="time-label">MIN</span></div>
+                    <div class="time-box"><span class="time-number" id="seconds">00</span><span class="time-label">SEG</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">⚜</div><div class="baroque-line"></div></div>
+
+    <!-- 4. RECEPCIÓN -->
+    <section style="background-color: #050000; padding: 70px 20px;">
+        <div data-aos="fade-up">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Recepción</h2>
+            <img src="copas.png" class="copas-anim" style="margin-bottom: 20px; filter: drop-shadow(0 0 5px var(--dorado));">
+            <div style="border-top: 1px solid #333; border-bottom: 1px solid #333; padding: 20px 0; max-width: 500px; margin: 0 auto;">
+                <p style="font-size: 1.5rem; color: #fff; margin: 5px 0;">Calle 30 # 50a - 17</p>
+                <p style="font-size: 1.2rem; color: #aaa; margin: 5px 0;">Barrio Zaragocilla, Cartagena</p>
+                <h3 style="color: var(--dorado); margin-top: 15px; font-size: 2rem;">🕖 7:00 PM</h3>
+            </div>
+            <a href="https://www.google.com/maps/search/?api=1&query=Calle+30+%23+50a+-+17+Barrio+Zaragocilla+Cartagena" target="_blank" class="btn-baroque">⚜ Cómo Llegar ⚜</a>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">❖</div><div class="baroque-line"></div></div>
+
+    <!-- 5. DRESS CODE -->
+    <section style="background-color: var(--vinotinto); padding: 60px 20px;">
+        <div data-aos="fade-up">
+            <h2>Dress Code</h2>
+            <img src="pareja2.png" class="pareja-anim" style="margin: 15px 0;">
+            <p style="color: #fff;">Elegante Formal</p>
+            <div style="border: 1px solid #ff4444; color: #ffcccc; padding: 10px 20px; display: inline-block; font-family: sans-serif; margin-top: 10px;">🚫 No usar color vinotinto</div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">⚜</div><div class="baroque-line"></div></div>
+
+    <!-- 6. REGALOS -->
+    <section class="bg-texture">
+        <div class="overlay">
+            <h2 style="margin-bottom: 50px;">Obsequio</h2>
+            <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;">
+                <div data-aos="fade-right"><img src="sobre.png" class="gift-auto-anim" alt="Sobre"><h3>Lluvia de Sobres</h3></div>
+                <!--<div data-aos="fade-left"><img src="regalo.png" class="gift-auto-anim" alt="Regalo"><h3>Regalo</h3></div>-->
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISOR -->
+    <div class="baroque-divider"><div class="baroque-line"></div><div class="baroque-symbol">❖</div><div class="baroque-line"></div></div>
+
+    <!-- 7. CONFIRMACIÓN -->
+    <section style="padding: 60px 20px; background-color: #080101;">
+        <h2 data-aos="fade-down">Confirmación de Asistencia</h2>
+        <p>Tu presencia es lo más importante para nosotros.</p>
+        <button onclick="openRSVP()" class="btn-baroque" style="cursor: pointer; background: transparent; color: var(--dorado);">Confirmar Asistencia</button>
+        <br><br>
+        <button onclick="window.print()" class="btn-print-pro"><span class="print-icon">🖨️</span> Imprimir Tarjeta Real</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="padding: 40px 20px; background: #000; border-top: 1px solid #333;">
+        <div class="script-font" style="font-size: 2.5rem;">¡Te esperamos!</div>
+        <div style="font-size: 1.2rem; color: #888; letter-spacing: 2px; margin-top: 10px;">KEYLEE SOFIA AMADOR PÉREZ</div>
+    </footer>
+
+    <!-- MODAL LIGHTBOX -->
+    <div id="lightbox" onclick="closeLightbox()"><span id="lightbox-close">&times;</span><img id="lightbox-img" src=""></div>
+
+    <!-- MODAL RSVP -->
+    <div id="rsvpModal">
+        <div class="rsvp-content">
+            <span class="close-modal" onclick="closeRSVP()">&times;</span>
+            <div class="rsvp-inner">
+                <h2 style="color: var(--dorado); margin-top: 0;">Confirmar</h2>
+                <form id="rsvpForm" onsubmit="enviarWhatsApp(event)">
+                    <div class="form-group"><label style="color: #ccc;">Nombre Completo:</label><input type="text" id="nombre" class="form-input" required></div>
+                    <div class="form-group"><label style="color: #ccc;">¿Asistirás?</label><select id="asistencia" class="form-select"><option value="Sí, confirmo">Sí, confirmo asistencia</option><option value="Lo siento, no podré">No podré asistir</option></select></div>
+                    <div class="form-group"><label style="color: #ccc;">Personas (Total):</label><input type="number" id="invitados" class="form-input" min="1" max="5" value="1"></div>
+                    <div class="form-group"><label style="color: #ccc;">Mensaje:</label><input type="text" id="mensaje" class="form-input" placeholder="Deseos para Keylee..."></div>
+                    <button type="submit" class="btn-gold">ENVIAR POR WHATSAPP</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        window.addEventListener("load", function() { const loader = document.getElementById("preloader"); loader.style.opacity = "0"; setTimeout(() => { loader.style.display = "none"; }, 500); });
+        var audio = document.getElementById("audioPlayer"); var disc = document.getElementById("musicDisc"); var isPlaying = false;
+        function toggleMusic() { if (isPlaying) { audio.pause(); disc.classList.remove("spinning"); } else { audio.play(); disc.classList.add("spinning"); } isPlaying = !isPlaying; }
+        document.body.addEventListener('click', function() { if(!isPlaying) toggleMusic(); }, { once: true });
+        
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 60; i++) { const p = document.createElement('div'); p.classList.add('particle'); p.style.left = Math.random() * 100 + 'vw'; const size = Math.random() * 4 + 1; p.style.width = size + 'px'; p.style.height = size + 'px'; p.style.animationDuration = Math.random() * 5 + 3 + 's'; p.style.animationDelay = Math.random() * 5 + 's'; container.appendChild(p); }
+            for (let i = 0; i < 12; i++) { const p = document.createElement('div'); p.classList.add('petal'); p.style.left = Math.random() * 100 + 'vw'; p.style.animationDuration = Math.random() * 6 + 6 + 's'; p.style.animationDelay = Math.random() * 5 + 's'; container.appendChild(p); }
+        }
+        createParticles();
+
+        function openLightbox(img) { document.getElementById('lightbox-img').src = img.src; document.getElementById('lightbox').style.display = 'flex'; }
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
+        function openRSVP() { document.getElementById('rsvpModal').style.display = 'flex'; }
+        function closeRSVP() { document.getElementById('rsvpModal').style.display = 'none'; }
+        
+        function enviarWhatsApp(e) {
+            e.preventDefault(); const nombre = document.getElementById('nombre').value; const asistencia = document.getElementById('asistencia').value; const invitados = document.getElementById('invitados').value; const mensaje = document.getElementById('mensaje').value; const telefono = "573122364189"; const text = `Hola Keylee, soy *${nombre}*.\n\n${asistencia}.\nTotal personas: ${invitados}\n\nMensaje: ${mensaje}`;
+            window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        const fechaEvento = new Date("March 21, 2026 19:00:00").getTime();
+        const x = setInterval(function() { const ahora = new Date().getTime(); const distancia = fechaEvento - ahora; document.getElementById("days").innerHTML = Math.floor(distancia / (1000 * 60 * 60 * 24)); document.getElementById("hours").innerHTML = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); document.getElementById("minutes").innerHTML = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60)); document.getElementById("seconds").innerHTML = Math.floor((distancia % (1000 * 60)) / 1000); if (distancia < 0) { clearInterval(x); document.getElementById("countdown").innerHTML = "¡ES HOY!"; } }, 1000);
+    </script>
+</body>
+</html>
